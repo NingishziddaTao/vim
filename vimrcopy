@@ -1,0 +1,301 @@
+
+" NOTE
+"shift k in python on a buildin opens pydoc
+
+" Buffers. _____________________________
+
+autocmd BufWinEnter ?* silent loadview 
+autocmd BufWinEnter normal <c-g>
+autocmd VimEnter ?* silent loadview
+autocmd BufWinLeave ?* silent mkview 
+autocmd VimLeave ?* silent mkview 
+
+syn sync fromstart
+syntax on
+let mapleader = "\<tab>" 
+
+" Load files
+let $file_path = "~/.vim/"
+"source ~/vim_files/functions.vim
+exec "source". $file_path . "functions.vim"
+exec "source". $file_path . "kv.vim"
+exec "source". $file_path . "curses.vim"
+exec "source". $file_path . "test_script.vim"
+exec "source". $file_path . "syntax/gdscript3.vim"
+exec "source". $file_path . "01costum_color_theme.vim"
+exec "source". $file_path . "curses.vim"
+
+"start vim
+if getcwd() == '/sdb2/go'
+    exec "source". $file_path . "godot.vim"
+    "execute 'cd! /sdb2/go'
+    args **/*.gd
+    "bufdo set nowrap
+    "cd /sdb2/$PWD
+    "cd $PWD
+
+elseif @% == ''
+    exec "source". $file_path . "python.vim"
+    find /sdb2/test.py
+    find /sdb2/main.py
+
+
+elseif @% =~ 'gd'
+    exec "source". $file_path . "godot.vim"
+    "nmap <leader>3 _i<space><backspace>#<return>
+    if @% == 'gd'
+        args **/*.gd
+        bd gd
+    endif
+
+elseif @% =~ 'py'
+    exec "source". $file_path . "python.vim"
+    if @% == 'py'
+        args **/*.py
+        bd py
+    endif
+    "bd %
+
+elseif @% =~ 'cpp'
+"elseif @% == 'cpp'
+    exec "source". $file_path . "cpp.vim"
+    if @% == 'cpp' 
+    "noremap <F5> :w!<bar>:!g++ % -o run<CR>
+    "nmap <leader>3 _i<space><backspace>//<return>
+        args **/*.cpp
+        args **/*.h
+        bd %
+        bd cpp
+    endif
+
+elseif @% == 'h'
+    args **/*.h
+    bd h
+
+endif
+
+
+" Check for file.
+" Configuration ----------------------------
+
+filetype on
+filetype plugin on
+filetype indent on
+
+set shortmess=a 
+set cmdheight=2
+"set viewdir=$HOME/vim//
+set noswapfile
+set nocompatible
+set complete-=t
+"set si
+set ai
+set number
+set pastetoggle=<leader>\
+set cursorline
+"set noexpandtab
+set relativenumber!
+"set tw=5000
+"
+"set autoindent
+set cindent
+set smarttab
+set tabstop=4
+set expandtab
+set softtabstop=4
+set shiftwidth=4
+set path=$PWD
+set sidescroll=1
+set viminfo='1000,f1
+set path=$PWD/**
+
+
+"autocmd VimEnter * echo "got a source from kivy.vim :call Kivyhelp() for more info"
+
+
+augroup remember_folds
+  autocmd!
+  autocmd BufWinLeave * mkview
+  autocmd BufWinEnter * silent! loadview
+  autocmd VimLeave * mkview
+  autocmd VimEnter * silent! loadview
+augroup END
+
+" Find character --------------------------------
+noremap 'pp /print<cr>dd``p
+
+noremap 99 /(<CR>l
+vnoremap 9 vllzz
+nnoremap <buffer> H :<C-u>execute "!pydoc3 " . expand("<cword>")<CR>
+noremap ] /{<cr>lzz
+noremap [ /[<cr>lzz
+nnoremap <leader>{ v /}<cr>hzz
+vnoremap { vllzz
+
+nnoremap '' /'<cr>lz
+noremap "" /"<cr>lz
+nnoremap ,, /,<cr>lz
+"nnoremap <leader>' /"<cr>i\<esc>ll
+nnoremap <leader>' ci"
+nnoremap <leader>9 ci(
+nnoremap <leader>] ci{
+nnoremap <leader>[ ci[
+nnoremap <leader>w ciw
+vnoremap " vllzz
+
+" Visual selection""""""""""""""""""""""""""""""""""""
+noremap <leader>v v0
+
+"blank lines
+nmap <leader>j o<cr> 
+nmap <leader>k <s-o><cr> 
+
+" Remapping saves etc --------------------------------
+noremap <silent><return> <return>:cclose<cr>
+"noremap cw *<s-n>:set hlsearch<CR>cw
+noremap cw *<s-n>:set hlsearch<CR>cw
+noremap mm :w!<bar>b#<CR>
+noremap <a-k> <s-o><return>
+noremap = {zz
+noremap - }zz
+noremap n nzz
+noremap <c-return> o
+noremap <a-2> "2$p
+noremap <F2> *<s-n>:set hlsearch<CR>
+
+noremap <silent><leader>p "pyiw :vimgrep <c-R>p **/*<bar>:cw<cr>
+noremap <silent><leader>o :vimgrep **/*<bar>:cw
+
+noremap <F3> :call GodotHelp()<cr>
+"noremap <F4> :w!<bar>!godot -v -d --fullscreen<cr> 
+"noremap <silent><F5> :w!<cr>:call Godot()<cr>
+"noremap <F6> :w!<bar>:!clear<cr>:!python %<CR>
+noremap ; :w!<cr>:
+
+nnoremap <leader><F2> "ryiw:%s/\<<c-R>r\>/
+nnoremap v <c-v>
+nnoremap <c-v> v$
+nnoremap <c-c> :call CopyPaste()<cr>
+
+nmap <c-e> :mkview<cr>:wq!<CR>
+"nmap    <leader>m :!bash /kivy_main.sh<cr>
+
+inoremap <F6> <esc>
+inoremap <silent><Return> <ESC>:nohlsearch<CR>
+inoremap <c-cr> <CR>
+inoremap <tab><tab> <c-p>
+inoremap <tab>` <c-x><c-l>
+
+imap <a-return> <return>
+imap <return> <ESC>m0
+
+vmap <return> <s-i>
+"
+" Disable shortkeys --------------------------
+nmap <S-C-t> :echo 'O.o'<cr>
+nmap 0 :echo 'O.o'<cr>
+
+"comment fold ----------------------------
+vmap 3 _)
+vmap 33 <return>#<return>zf-
+"nmap <leader>3 _i<space><backspace>#<return>
+"nmap <leader>3 _i<space><backspace>//<return>
+"nmap! <leader>33 _v)<return>#<return><s-v>)zf
+
+"nmap <leader>33 _v)<cr>#<cr>v)zf
+"nmap <leader>22 0zov-x
+
+"register 
+nnoremap <leader>y "yy_
+inoremap <leader>y <c-R>y
+nnoremap]y i<c-R>y<Esc>
+vnoremap ]y "yp
+"vnoremap y _"yd
+
+nnoremap <leader>u "uyiw
+inoremap <leader>u <c-R>u
+nnoremap ]u i<c-R>u<Esc>
+vnoremap ]u "up
+vnoremap u "ud
+
+nnoremap <leader>i "iy$
+inoremap <leader>i <c-R>i
+nnoremap ]i i<c-R>i<Esc>
+vnoremap ]i "ip
+"vnoremap i $"id
+
+"nnoremap <leader>o "oye
+inoremap <leader>o <c-R>o
+nnoremap ]o i<c-R>o<Esc>
+vnoremap ]o "op
+vnoremap o "oy
+
+nnoremap <leader>m "my$
+inoremap <leader>m <c-R>m
+nnoremap ]m i<c-R>m<Esc>
+vnoremap ]m "mp
+vnoremap m "my
+
+nnoremap <leader>n "ny$
+inoremap <leader>n <c-R>n
+nnoremap ]n i<c-R>n<Esc>
+vnoremap ]n "np
+vnoremap n "ny
+
+"nmap <leader>p oprint()<cr><cr>
+"nmap <leader>p j)p
+inoremap <leader>p <c-R>p
+nnoremap ]p i<c-R>p<Esc>
+vnoremap ]p "pp
+vnoremap p "py
+
+"insert mode control
+imap <leader>h <Left>
+imap <leader>k <Up>
+imap <leader>j <Down>
+imap <leader>l <Right>
+imap <leader>x <Delete>
+
+"add function
+imap <leader>, <Right>, 
+imap <leader>; <cr>A:<c-return>
+imap <leader>9 ()<Left>
+imap <leader>0 ("")<Left><Left>
+imap <leader>[ []<Left>
+imap <leader>] [""]<Left><Left>
+imap <leader>' ""<Left>
+
+inoremap )( (<Esc>A)
+inoremap ][ [<Esc>A]
+"inoremap }{ {<Esc>A}
+
+
+nnoremap <leader>r :call Yank()<cr><bar>A
+nnoremap <leader>e _"ryw<s-o><c-R>r
+nnoremap <leader>d d2w
+
+nmap <Tab><Tab> _i<Tab><Return>
+
+"add to funtion
+nnoremap ) )k
+nmap <silent> <Space> :call Line()<cr>
+vmap <silent> <Space> :call VisLine()<cr>
+vnoremap ) )k
+
+"buffer
+nmap <c-b> :w! <bar> :b#<cr>
+
+"nmap <silent> <Left> :mkview <cr>:bprevious<bar>:loadview <cr>:echo bufnr('%') @%<bar>:cd $PWD<cr>
+nmap <silent> <Left> :mkview <cr>:bprevious<bar>:loadview <cr>:echo bufnr('%') @%<cr><c-g>
+"nmap <silent> <Left> :w<cr>:bprevious<bar>:loadview <cr>:echo bufnr('%') @%<bar>:cd $PWD<cr>
+nmap <silent> <Right> :mkview <cr>:bnext<bar>: loadview <cr>:echo bufnr('%') @%<cr><c-g>
+"nmap <silent> <Right> :w<cr>:bnext<bar>: loadview <cr>:echo bufnr('%') @%<bar>:cd $PWD<cr>
+
+nmap <Up> :w!"<cr>
+nmap <Down> :e!<bar>:set rnu<bar>:retab<cr>
+nmap <s-Down> :bufdo bd<bar>:args **/*.gd<bar>:set rnu<bar>:retab<cr>
+nmap <c-Down> :bd<cr>
+"nmap <c-Up> :%bd<bar>:args ~/GodotEngineProjects/2D_Platformer/**/*.gd<cr>
+nmap <c-Up> :%bd<bar>:args ~/GodotEngineProjects//**/*.gd<bar>:set rnu
+nmap <leader>f :w!<cr>:find 
+

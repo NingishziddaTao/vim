@@ -1,0 +1,145 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+fu KivySearch()
+" Search for the word kivy it is found add documentation file to buffer.
+
+if search("kivy") == 0
+    echo 'kivy not found'
+else
+    echo 'kivy found'
+    "badd /py3.7/kivy_py3.7/kivy-doc
+    loadview
+endif
+endfu
+"autocmd VimEnter * call KivySearch()
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+fu BoxLayout_kv()
+put = 'from kivy.app import App'
+put = 'from kivy.uix.boxlayout import BoxLayout'
+put = 'from kivy.lang import Builder'
+put = ''
+put = 'Builder.load_string('
+put = '\"\"\"'
+put = '<box>:'
+put = '    BoxLayout:'
+put = '        id: bx'
+put = '        #size_hint_y: None'
+put = '        #size_hint_x: None'
+put = '        size_hint: 0,0'
+put = '        pos_hint: {\"top\": 1}'
+put = '        size: root.width /4, root.height /4'
+put = ''
+put = '\"\"\")'
+put = 'class box(BoxLayout):'
+put = '    def __init__(self, **kwargs):'
+put = '        super(Box, self).__init__(**kwargs)'
+put = '        pass'
+put = ''
+put = 'class main(App):'
+put = '    def build(self):'
+put = '        return box()'
+put = ''
+put = 'if __name__ == \"__main__\":'
+put = '    main().run()'
+endfu
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+fu ScreenManager_kv()
+put = '#screen_manager_kivy,py'
+put = 'from kivy.app import App'
+put = 'from kivy.lang import Builder'
+put = 'from kivy.uix.screenmanager import ScreenManager, Screen'
+put = ''
+put = '# Create both screens. Please note the root.manager.current: this is how'
+put = '# you can control the ScreenManager from kv. Each screen has by default a'
+put = '# property manager that gives you the instance of the ScreenManager used.'
+put = ''
+put = 'Builder.load_string('
+put = '\"\"\"'
+put = '<MenuScreen>:'
+put = '    BoxLayout:'
+put = '        Button:'
+put = '            text: \"Goto settings\"'
+put = '            on_press: root.manager.current = \"settings\"'
+put = ''
+put = '<SettingsScreen>:'
+put = '    BoxLayout:'
+put = '        Button:'
+put = '            background_color: [3,1,1,1]'
+put = '            text: \"Back to menu\"'
+put = '            on_press: root.manager.current = \"menu\"'
+put = '\"\"\")'
+put = ''
+put = '# Declare both screens'
+put = ''
+put = 'class MenuScreen(Screen):'
+put = '    pass'
+put = ''
+put = 'class SettingsScreen(Screen):'
+put = '    pass'
+put = ''
+put = '# Create the screen manager'
+put = 'sm = ScreenManager()'
+put = 'sm.add_widget(MenuScreen(name=\"menu\"))'
+put = 'sm.add_widget(SettingsScreen(name=\"settings\"))'
+put = '''
+put = 'class TestApp(App):'
+put = '    def build(self):'
+put = '        return sm'
+put = ''
+put = 'if __name__ == \"__main__\":'
+put = '    TestApp().run()'
+put = ''
+endfu
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+fu PageLayout_kv()
+put = 'from kivy.app import App'
+put = 'from kivy.uix.pagelayout import PageLayout'
+put = 'from kivy.uix.boxlayout import BoxLayout'
+put = 'from kivy.lang import Builder'
+put = ''
+put = '#Two pages made out of boxlayouts both pages have 2 buttons'
+put = 'Builder.load_string('
+put = '\"\"\"'
+put = '<Page>:'
+put = '    BoxLayout:'
+put = '        Button:'
+put = '            text: \"page1\"'
+put = '        Button:'
+put = '            text: \"page2\"'
+put = ''
+put = '    BoxLayout:'
+put = '        Button:'
+put = '            text: \"page3\"'
+put = '        Button:'
+put = '            text: \"page4\"'
+put = '
+put = '\"\"\")'
+put = 'class Page(PageLayout):'
+put = '    def __init__(self, **kwargs):'
+put = '        super(Page, self).__init__(**kwargs)'
+put = '        pass'
+put = ''
+put = 'class main(App):'
+put = '    def build(self):'
+put = '        return Page()'
+put = ''
+put = 'if __name__ == \"__main__\":'
+put = '    main().run()'
+endfu
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+fu Button_kv()
+put = '        Button:'
+put = '            id: btn'
+put = '            text: \"button1\"'
+put = '            font_size: 20 '
+put = '            on_release: root.hello()'
+put = '            relative: True'
+put = '            size_hint: 0,0'
+put = '            size: root.width, root.height'
+put = '            pos_hint: {\"top\": 1}'
+put = '            top:  True'
+endfu
