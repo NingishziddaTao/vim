@@ -73,9 +73,10 @@ endfu
 "
 """"""""""""""""""""""""""""" GODOT """"""""""""""""""""""""""""""""""""""""""""""""""""
 
-fu BufPrint()
-    "put = 'print('''.bufname('%').''')'
-    put = 'print('''.bufname('%').': '')'
-    normal $
-endfu
-nmap 'tt :call BufPrint()<CR>
+"fu BufPrint()
+"    "put = 'print('''.bufname('%').''')'
+"    put = 'print('''.bufname('%').': '')'
+"    normal $
+"endfu
+"nmap 'tt :call BufPrint()<CR>
+

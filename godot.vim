@@ -78,6 +78,7 @@ fu Animation()
     normal F1
 endfu
 nmap 'ya :call Animation()<CR>
+
 """"""""""""""""""""""""""""" GODOT """"""""""""""""""""""""""""""""""""""""""""""""""""
 fu Tween()
 
