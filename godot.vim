@@ -68,10 +68,10 @@ nmap 'yt :call Timer()<CR>
 
 """"""""""""""""""""""""""""" GODOT """"""""""""""""""""""""""""""""""""""""""""""""""""
 fu YieldTween()
-    normal oyield(t, "completed")
+    normal oyield(t, "tween_completed")
     normal F1
 endfu
-nmap 'yw :call Tween()<CR>
+nmap 'yw :call YieldTween()<CR>
 """"""""""""""""""""""""""""" GODOT """"""""""""""""""""""""""""""""""""""""""""""""""""
 fu Animation()
     normal oyield(get_node("anim"), "animation_finished")

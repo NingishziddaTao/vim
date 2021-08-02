@@ -1,6 +1,7 @@
 
 " NOTE
 "shift k in python on a buildin opens pydoc
+":put =strftime('%Y-%m-%d')
 
 " Buffers. _____________________________
 
@@ -73,6 +74,13 @@ elseif @% == 'h'
     bd h
 
 endif
+
+fu BufPrint()
+    "put = 'print('''.bufname('%').''')'
+    put = 'print('''.bufname('%').': '')'
+    normal $
+endfu
+nmap 'tt :call BufPrint()<CR>
 
 
 " Check for file.
@@ -163,10 +171,11 @@ noremap <c-return> o
 noremap <a-2> "2$p
 noremap <F2> *<s-n>:set hlsearch<CR>
 
-noremap <silent><leader>p "pyiw :vimgrep <c-R>p **/*<bar>:cw<cr>
-noremap <silent><leader>o :vimgrep **/*<bar>:cw
+noremap <silent><leader>g "pyiw :vimgrep <c-R>p **/*<bar>:cw<cr>
+"noremap <silent><leader>g :vimgrep **/*<bar>:cw
 
 noremap <F3> :call GodotHelp()<cr>
+noremap <F7> <c-v>:w !bash<cr>
 "noremap <F4> :w!<bar>!godot -v -d --fullscreen<cr> 
 "noremap <silent><F5> :w!<cr>:call Godot()<cr>
 "noremap <F6> :w!<bar>:!clear<cr>:!python %<CR>
@@ -220,15 +229,15 @@ vnoremap u "ud
 
 nnoremap <leader>i "iy$
 inoremap <leader>i <c-R>i
-nnoremap ]i i<c-R>i<Esc>
-vnoremap ]i "ip
+vnoremap i "iy
+"nnoremap ]i i<c-R>i<Esc>
 "vnoremap i $"id
 
-"nnoremap <leader>o "oye
+nnoremap <leader>o "od$
 inoremap <leader>o <c-R>o
-nnoremap ]o i<c-R>o<Esc>
-vnoremap ]o "op
-vnoremap o "oy
+vnoremap o "od
+"vnoremap <leader>o "od
+"nnoremap <leader>o "oye
 
 nnoremap <leader>m "my$
 inoremap <leader>m <c-R>m
@@ -265,7 +274,9 @@ imap <leader>[ []<Left>
 imap <leader>] [""]<Left><Left>
 imap <leader>' ""<Left>
 
-inoremap )( (<Esc>A)
+"nnoremap )( (<Esc>A)
+inoremap )) (<Esc>A)
+inoremap )( (<c-right><left>)
 inoremap ][ [<Esc>A]
 "inoremap }{ {<Esc>A}
 
