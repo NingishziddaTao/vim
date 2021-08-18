@@ -1,5 +1,18 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+fu Grep(arg)
+    execute "vimgrep /\\<".a:arg."\\>/g **/*"
+    "execute "vimgrep g/\<".a:arg."\> **/*"
+    "/\<read_file\>
+    "sleep 0.5
+    execute "cw"
+    "execute "!pydoc ".a:arg." >> /pydoc_temp.py"
+endfu
+command! -nargs=1 Grep call Grep(<f-args>)
+"<C-/
+nmap <C-_> :Grep 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 let g:space_count = 0
 fu Line()
     "this will go to the begin of the line when executed for the first time
@@ -14,8 +27,8 @@ fu Line()
     "echo g:space_count
 endfu
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 let g:space_count = 0
 fu VisLine()
     "this will go to the begin of the line when executed for the first time
@@ -73,7 +86,6 @@ fu Pydoc(arg)
     w!  
     execute "!pydoc ".a:arg." >> /pydoc_temp.py"
     normal gg
-
 endfu
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -96,7 +108,6 @@ fu Yank()
 "This will copy the 1stword of a line and paste into the next line udnerneath
 "If this line will start with the word 'self' it will copy self the dot  and the
 "following word to work faster with objects
-
     exe 'normal _"ryw'
 
     if getreg("r") == 'self'

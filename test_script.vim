@@ -1,6 +1,4 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let test = 100
-
 function Test()
     !clear
 python << EOF
@@ -77,39 +75,11 @@ endfunction
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 fu GetGdFiles(arg)
-
-    "execute /"normal%bd<bar>:args ~/GodotEngineProjects/".a:arg."/**/*.gd<cr>"
-    " Delete current buffers
-    "execute /"args ~/GodotEngineProjects/".a:arg."/**/*.gd"
-    "execute /"!rm -r /sda5/go/*"
     execute "!rsync -r --delete /sda5/GodotEngineProjects/".a:arg."/ /sda5/go"
-    "execute /"!cp -r /sda5/GodotEngineProjects/".a:arg."/* /sda5/go/"
     execute "%bd"
     execute "args /sda5/go/**/*.gd"
     execute "set rnu"
-
 endfu
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"sleep(0.5)
-"pyperclip.paste()
-"function CopyPaste()
-"python3 << EOF
-"
-"import vim
-"import pyperclip
-"import pyautogui
-"from pyautogui import hotkey
-"from time import sleep
-"
-"pyautogui.PAUSE = 0.2
-"
-"hotkey("shift", "ctrl", "c")
-"hotkey("shift", "ctrl", "c")
-"hotkey("`", "0")
-"hotkey("shift", "ctrl", "v")
-"EOF
-"endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 

@@ -48,16 +48,19 @@ EOF
 endfunction
 
 """"""""""""""""""""""""""""" GODOT """"""""""""""""""""""""""""""""""""""""""""""""""""
-
 fu Control()
-    normal oif Input.is_key_pressed(KEY_Q):
-        normal oget_tree().quit()
-    normal 2k 
-    normal oif Input.is_key_pressed(KEY_B):
-        normal obreakpoint
-
+	put = 'func _input(event: InputEvent) -> void:'
+	put = '    if event is InputEventKey and event.scancode == KEY_Q:'
+	put = '        get_tree().quit()'
 endfu
 nmap 'co :call Control()<CR>
+
+""""""""""""""""""""""""""""" GODOT """"""""""""""""""""""""""""""""""""""""""""""""""""
+fu Wide()
+    execute '!less ~/GodotEngineProjects/widescreen >> project.godot'
+    execute '!less ~/GodotEngineProjects/widescreen'
+endfu
+nmap 'wi :call Wide()<cr>
 
 """"""""""""""""""""""""""""" GODOT """"""""""""""""""""""""""""""""""""""""""""""""""""
 fu Timer()
@@ -81,7 +84,6 @@ nmap 'ya :call Animation()<CR>
 
 """"""""""""""""""""""""""""" GODOT """"""""""""""""""""""""""""""""""""""""""""""""""""
 fu Tween()
-
 put = '    var tween = Tween.new(); add_child(tween)'
 put = ''
 put = '    tween.interpolate_property(node, \"property\", # node, property'
@@ -91,7 +93,10 @@ put = '                              Tween.TRANS_QUAD, '
 put = '                              Tween.EASE_IN, '
 put = '                              0) # delay'
 put = '    tween.start()'
-
 endfu
 nmap 'tw :call Tween()<CR>
+
+""""""""""""""""""""""""""""" GODOT """"""""""""""""""""""""""""""""""""""""""""""""""""
+
+
 

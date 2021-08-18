@@ -171,7 +171,9 @@ noremap <c-return> o
 noremap <a-2> "2$p
 noremap <F2> *<s-n>:set hlsearch<CR>
 
-noremap <silent><leader>g "pyiw :vimgrep <c-R>p **/*<bar>:cw<cr>
+noremap <silent><leader>g "pyiw :vimgrep /\<<c-R>p\>/g **/*<bar>:cw<cr>
+"noremap <silent><leader>g "pyiw :vimgrep g/\<c-R>p **/*<bar>:cw<cr>
+"noremap <silent><leader>g "pyiw :vimgrep <c-R>p **/*<bar>:cw<cr>
 "noremap <silent><leader>g :vimgrep **/*<bar>:cw
 
 noremap <F3> :call GodotHelp()<cr>
@@ -276,7 +278,8 @@ imap <leader>' ""<Left>
 
 "nnoremap )( (<Esc>A)
 inoremap )) (<Esc>A)
-inoremap )( (<c-right><left>)
+"inoremap )( (<c-right><left>)
+inoremap )( (<c-right>)
 inoremap ][ [<Esc>A]
 "inoremap }{ {<Esc>A}
 
